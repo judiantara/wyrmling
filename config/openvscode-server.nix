@@ -12,7 +12,7 @@ programs.nix-ld.enable = true;
     group                  = "${user}";
     extraGroups            = [ "wheel" "systemd-journal" "networkmanager" ];
     telemetryLevel         = "off";
-    withoutConnectionToken = true;
+    withoutConnectionToken = true;node
   };
   
 #   systemd.services.openvscode-server-https = {

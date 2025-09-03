@@ -1,4 +1,4 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{hostname, user, inputs, outputs, lib, config, pkgs, ...}:
 {
   imports = [
     ../../hardware/amd.nix
