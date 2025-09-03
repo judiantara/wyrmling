@@ -1,6 +1,15 @@
-{ config, pkgs, lib, ... }:
+{ ... }:
 
 {
+  # tell libinput to disables trackpad when typing
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Serial Keyboards]
+
+    MatchUdevType=keyboard
+    MatchName=keyd*keyboard
+    AttrKeyboardIntegration=internal
+  '';
+
   services.keyd = {
     enable = true;
     keyboards = {
@@ -15,14 +24,16 @@
             capslock = "layer(symbol)";
           };
           symbol = {
-            d = "~";
-            f = "`";
-          };
-          meta = {
+            f = "~";
+            c = "`";
+
+            # for tmux split pane
             w = ''macro(C-b ;)'';
             s = ''macro(C-b ")'';
             a = ''macro(C-b $)'';
             d = ''macro(C-b %)'';
+
+            # for tmux movement
             i = ''macro(C-b up)'';
             k = ''macro(C-b down)'';
             j = ''macro(C-b left)'';

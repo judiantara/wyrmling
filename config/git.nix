@@ -1,24 +1,24 @@
-{lib, config, pkgs, ...}:
+{ ... }:
+
 {
-  environment.systemPackages = with pkgs; [
-    git
-    git-crypt
-  ];
-  
   programs.git = {
     enable = true;
     config = [
       {
         alias = {
-          ci         = ''commit -m'';
-          cb         = ''checkout'';
-          nb         = ''checkout -b'';
-          st         = ''status'';
+          al         = ''add .'';
           br         = ''branch -v'';
+          ci         = ''commit -m'';
+          co         = ''checkout'';
+          cb         = ''checkout -b'';
+          df         = ''diff'';
+          st         = ''status'';
           ri         = ''remote -v'';
           fp         = ''push -f'';
           rb         = ''pull --rebase'';
           cia        = ''commit --amend -m'';
+          cfg        = ''config --list --show-origin'';
+          dfs        = ''diff --staged'';
           rmb        = ''branch -d'';
           prb        = ''branch -D'';
           out        = ''log @{u}..'';
