@@ -18,8 +18,8 @@
     ../../config/yubikey.nix
     ../../config/age-encryption.nix
     ../../config/kdeconnect.nix
+    ../../config/syncthing.nix
     ../../config/git.nix
-    ../../config/virtualbox-host.nix
     ../../users/judiantara.nix
     ./disk.nix
     ./luks.nix

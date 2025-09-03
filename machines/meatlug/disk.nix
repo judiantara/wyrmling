@@ -31,7 +31,6 @@
                   "--perf-no_write_workqueue"
                 ];
                 # disable settings.keyFile if you want to use interactive password entry
-                passwordFile = "/etc/luks/disk.key";
                 settings = {
                   allowDiscards = true;
                   keyFile = "/tmp/luks.key";

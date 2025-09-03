@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   # Enable sound with pipewire.
   security.rtkit.enable = true;

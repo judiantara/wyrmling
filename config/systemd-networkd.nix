@@ -1,9 +1,10 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   networking = {
     useDHCP = lib.mkForce true;
 
-    # Enable networking
+    # Disable NetworManager
     networkmanager.enable = lib.mkForce false;
 
     # Enable firewall.

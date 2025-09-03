@@ -31,6 +31,7 @@
                   "--perf-no_write_workqueue"
                 ];
                 # use interactive password entry
+                passwordFile = "/tmp/luks.key";
                 settings = {
                   allowDiscards = true;
                 };

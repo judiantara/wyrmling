@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   # restore host ssh keys
   environment ={

@@ -1,6 +1,8 @@
-{lib, config, pkgs, ...}:
+{ pkgs, ... }:
+
 {
   environment.systemPackages = with pkgs; [
+    home-manager
     nano
     wget
     curl
@@ -36,6 +38,7 @@
     inetutils
     pciutils
     usbutils
+    unixtools.net-tools
     cyme
     nvtopPackages.amd
     microcode-amd

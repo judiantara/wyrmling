@@ -10,7 +10,7 @@
             ESP = {
               size  = "512M";
               type  = "EF00";
-              label = "StormflyESP";
+              label = "StormFlyESP";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -21,7 +21,7 @@
             luks = {
               size = "100%";
               type = "8304";
-              label = "Stormfly";
+              label = "StormFly";
               content = {
                 type = "luks";
                 name = "stormfly";
@@ -31,6 +31,7 @@
                   "--perf-no_write_workqueue"
                 ];
                 # use interactive password entry
+                passwordFile = "/tmp/luks.key";
                 settings = {
                   allowDiscards = true;
                 };
