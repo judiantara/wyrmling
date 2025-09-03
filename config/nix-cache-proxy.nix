@@ -1,0 +1,49 @@
+{ hostname, ... }:
+
+{
+  services.ncps = {
+    enable = true;
+    cache = {
+      hostName = "cache.${hostname}.opik";
+      maxSize = "150G";
+      lru.schedule = "0 2 * * *"; # Clean up daily at 2 AM
+      allowPutVerb = true;
+      allowDeleteVerb = true;
+    };
+    server.addr = "127.0.0.1:5000";
+    upstream = {
+      caches = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+      ];
+      publicKeys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = true;
+    virtualHosts."cache.${hostname}.opik" = {
+      serverName        = "cache.${hostname}.opik";
+      sslCertificate    = "/etc/ssl/certs/host-cert.pem";
+      sslCertificateKey = "/etc/ssl/certs/host-key.pem";
+      forceSSL          = true;
+
+      locations."/".extraConfig = ''
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_redirect http:// https://;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+      '';
+    };
+  };
+
+  # Open port for ncps
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+}

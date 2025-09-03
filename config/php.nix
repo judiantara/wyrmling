@@ -1,4 +1,5 @@
-{lib, config, pkgs, user, hostname, ...}:
+{  hostname, user, config, pkgs, ... }:
+
 {
   environment.systemPackages = with pkgs; [
     php84

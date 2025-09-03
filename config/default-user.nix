@@ -1,6 +1,10 @@
-{ config, pkgs, lib, user, ... }:
+{ user, lib, ... }:
 
 {
+  nix.settings.trusted-users = [
+    "${user}"
+  ];
+
   users.groups.${user} = {
     gid = 1000;
   };
@@ -18,18 +22,27 @@
       "systemd-journal"
       "networkmanager"
       "vboxusers"
+      "kvm"
     ];
   };
 
-  security.sudo-rs.extraRules = [
-    {
-      users = [ "${user}" ];
-      commands = [
-         {
-           command = "ALL" ;
-           options= [ "NOPASSWD" ];
-         }
+  # use memory safe sudo implementation
+  security = {
+    sudo.enable = lib.mkForce false;
+    sudo-rs = {
+      enable = true;
+      execWheelOnly = false;
+      extraRules = [
+        {
+          users = [ "${user}" ];
+          commands = [
+            {
+              command = "ALL" ;
+              options= [ "NOPASSWD" ];
+            }
+          ];
+        }
       ];
-    }
-  ];
+    };
+  };
 }
