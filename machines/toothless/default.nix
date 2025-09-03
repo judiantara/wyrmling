@@ -1,10 +1,14 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ user, ... }:
+
 {
   imports = [
-    ../../hardware/amd.nix
+    ../../hardware/cpu-amd.nix
+    ../../hardware/sane.nix
+    ../../hardware/printers.nix
     ../../hardware/keyboard.nix
+    ../../config/disable-sleep.nix
     ../../config/system.nix
-    ../../config/default-packages.nix
+    ../../config/system-packages.nix
     ../../config/default-user.nix
     ../../config/latest-kernel.nix
     ../../config/plasma-desktop.nix
@@ -15,6 +19,7 @@
     ../../config/pipewire-audio.nix
     ../../config/age-encryption.nix
     ../../config/kdeconnect.nix
+    ../../config/syncthing.nix
     ../../config/git.nix
     ../../users/${user}.nix
     ./disk.nix

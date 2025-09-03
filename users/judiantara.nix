@@ -1,18 +1,15 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
-  users.users.judiantara = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6G07AT9uNhUY7adp58KvhKfWajWOJNLIArqOfzlxG5 Baju Judiantara"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMPE5alD1Q4iICcUg3Wl7s041izdVSYmDCJqBZiPzO4RAAAABHNzaDo= Baju Judiantara YubiKey"
-    ];
-  };
-
   security.pam.services = {
     login.u2fAuth = true;
     sudo.u2fAuth = true;
   };
 
+  #
+  # enroll u2f keys with command
+  # pamu2fcfg -o pam://judiantara -i pam://judiantara
+#   #
   security.pam.u2f = {
     enable = true;
     settings = {
@@ -21,15 +18,9 @@
       origin = "pam://judiantara";
       authfile = pkgs.writeText "u2f-mappings" (lib.concatStrings [
         "judiantara"
-        ":109FkKJZKKEPF1GajCaFGthy+3HEw2nSvNg+GDTWhD6bI7rzTQReIZr/kvF9Ad9Yems9m1Ok+NomXuEo3lbRTw==,AqzN0UfJcfJ7ftpNcKW3K+c+cFuo5LTkMoWHmEVVU9+UWr3HBF3yCGdOzjJGS3d8R8/6+CyrCb5ZekgTIda4Cg==,es256,+presence"
-        ":mViLIld/gHpiim6lgd3eb8jq8721dI7ZzXLLD4KjxvehAHJJr/mpfQj2MU/bK4ayH2o6UzIB5D2a7K2qQOwBCg==,CY281JRWMpcT9l1hZPbNvqq5gkPARheZh6rniZmb1Cse4+nmrXdxS0mt95VEEzMyUscQOoOohZSWyd5R5ftD9Q==,es256,+presence"
+        ":6fEVt9/C594Ii7D7S/6JJifTsA0DrRjaZLuoJx2fknY0IvpQ9uOzHphw5dzCRVub/445uXM7+6RpSOJbb9vO5w==,vNeL2KR7vXjeHSOBTMZCuVRCjWM/AmOd9zXsFEHOKYhp6189sMK4klxQylvIIJCs3c8MYA97B2g1++jqcQS6cA==,es256,+presence"
+        ":GzDTETgQ+4iNbu+KqGeTHM+7A4DDcfkbANMfCWc+0FvsGhZXV+9HPY/c4PgBKa8nQy4nCeXT0C+sW63vMvqcQw==,6Khxu5rkiDIIWkDB1tLE7bY4YeE+XLzKYVcI3H5TgX2ryrVVFCFW6taxjZ/A/IcawT2zpEV+2WD4iR6YQ2NeeQ==,es256,+presence"
       ]);
     };
-  };
-
-  # open syncthing
-  networking.firewall = {
-    allowedTCPPorts = [ 8384 22000 ];
-    allowedUDPPorts = [ 22000 21027 ];
   };
 }
