@@ -1,4 +1,5 @@
-{lib, config, pkgs, hostname, ...}:
+{ hostname, ... }:
+
 {
   age = {
     secrets = {

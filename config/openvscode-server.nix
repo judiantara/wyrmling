@@ -1,6 +1,7 @@
-{lib, config, pkgs, user, ...}:
+{ user, pkgs, ...}:
+
 {
-programs.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 
   programs.nix-ld.libraries = with pkgs; [
     openvscode-server
@@ -13,8 +14,16 @@ programs.nix-ld.enable = true;
     extraGroups            = [ "wheel" "systemd-journal" "networkmanager" ];
     telemetryLevel         = "off";
     withoutConnectionToken = true;
+    host                   = "0.0.0.0";
+    port                   = 3000;
   };
-  
+
+  networking.firewall.allowedTCPPorts = [ 3000 ];
+
+#   environment.systemPackages = with pkgs; [
+#     socat
+#   ];
+#
 #   systemd.services.openvscode-server-https = {
 #     enable = true;
 #     description = "Openvscode-server TLS Termination service";
