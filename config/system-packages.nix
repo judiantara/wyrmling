@@ -1,6 +1,8 @@
-{lib, config, pkgs, ...}:
+{ pkgs, ... }:
+
 {
   environment.systemPackages = with pkgs; [
+    home-manager
     nano
     wget
     curl
@@ -36,6 +38,8 @@
     inetutils
     pciutils
     usbutils
+    nixos-firewall-tool
+    unixtools.net-tools
     cyme
     nvtopPackages.amd
     microcode-amd
@@ -44,5 +48,9 @@
     iptables
     sqlite
     linuxPackages.usbip
+    libxfs
+    xfs-undelete
+    xfsprogs
+    ntfs3g
   ];
 }

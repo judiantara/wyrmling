@@ -1,10 +1,14 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   networking = {
     # Enable networking
-    networkmanager.enable = true;
+    networkmanager.enable = lib.mkForce true;
 
     # Enable firewall.
-    firewall.enable = true;
+    firewall.enable = lib.mkForce true;
+
+    #disable IPv6
+    enableIPv6 = lib.mkForce false;
   };
 }
