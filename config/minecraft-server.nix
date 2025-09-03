@@ -1,13 +1,11 @@
-{inputs, outputs, lib, config, pkgs, ...}:
+{ inputs, lib, pkgs, ... }:
 let
-  inherit (lib) filterAttrs attrValues elem flatten concatStringsSep;
-
   # Pin JRE versions used by instances
-  jre8  = pkgs.temurin-bin-8;
-  jre17 = pkgs.temurin-bin-17;
+#   jre8  = pkgs.temurin-bin-8;
+#   jre17 = pkgs.temurin-bin-17;
   jre21 = pkgs.temurin-bin-21;
 
-  jvmOpts = concatStringsSep " " [
+  jvmOpts = lib.concatStringsSep " " [
     "-Djava.awt.headless=true"
     "-XX:+UseG1GC"
     "-XX:+ParallelRefProcEnabled"
