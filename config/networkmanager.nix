@@ -1,10 +1,17 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
+  # Use NetworkManager to manage networking instead of systemd-networkd
+  systemd.network.enable = lib.mkForce false;
+
   networking = {
-    # Enable networking
-    networkmanager.enable = true;
+    # Enable NetworkManager
+    networkmanager.enable = lib.mkForce true;
 
     # Enable firewall.
-    firewall.enable = true;
+    firewall.enable = lib.mkForce true;
+
+    #disable IPv6
+    enableIPv6 = lib.mkForce false;
   };
 }
