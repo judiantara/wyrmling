@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ hostname, lib, ... }:
+
 {
   # Enable virtualbox guest module for this vm
   virtualisation.virtualbox.guest.enable = true;

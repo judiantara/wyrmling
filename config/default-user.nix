@@ -1,8 +1,12 @@
-{ config, pkgs, lib, user, ... }:
+{ user, uid, ... }:
 
 {
+  nix.settings.trusted-users = [
+    "${user}"
+  ];
+
   users.groups.${user} = {
-    gid = 1000;
+    gid = uid;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -12,24 +16,9 @@
     home = "/home/${user}";
     createHome = true;
     group = "${user}";
-    uid = 1000;
+    uid = uid;
     extraGroups = [
-      "wheel"
-      "systemd-journal"
       "networkmanager"
-      "vboxusers"
     ];
   };
-
-  security.sudo-rs.extraRules = [
-    {
-      users = [ "${user}" ];
-      commands = [
-         {
-           command = "ALL" ;
-           options= [ "NOPASSWD" ];
-         }
-      ];
-    }
-  ];
 }
