@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ user, ... }:
+
 {
   imports = [
     ../../hardware/amd.nix
@@ -6,7 +7,7 @@
     ../../hardware/tlp.nix
     ../../hardware/bluetooth.nix
     ../../config/system.nix
-    ../../config/default-packages.nix
+    ../../config/system-packages.nix
     ../../config/latest-kernel.nix
     ../../config/plasma-desktop.nix
     ../../config/networkmanager.nix
@@ -19,8 +20,7 @@
     ../../config/kdeconnect.nix
     ../../config/git.nix
     ../../config/virtualbox-host.nix
-    ../../users/u2f-pam.nix
-    ../../users/judiantara.nix
+    ../../users/${user}.nix
     ./disk.nix
     ./luks.nix
   ];

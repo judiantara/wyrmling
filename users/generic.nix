@@ -1,4 +1,4 @@
-{ lib, config, pkgs, user, hostname, ... }:
+{user, hostname, pkgs, ...}:
 
 {
   # Home Manager needs a bit of information about you and the

@@ -1,18 +1,15 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ lib, ... }:
 
 {
   boot.initrd = {
-    availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "uas" "sd_mod" ];
-    # Required to open the EFI partition and Yubikey
-    kernelModules = ["vfat" "nls_cp437" "nls_iso8859-1" "usbhid"];
+    systemd.enable = lib.mkForce false; # use systemd-udev for stage 1
 
     luks = {
       # Support for Yubikey PBA
       yubikeySupport = true;
 
       devices."cloudjumper" = {
-        device = "/dev/disk/by-partlabel/Cloudjumper";
-        fallbackToPassword = false;
+        device = "/dev/disk/by-partlabel/CloudJumper";
 
         yubikey = {
           slot = 1;

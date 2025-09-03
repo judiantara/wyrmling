@@ -8,9 +8,8 @@
   nixpkgs.hostPlatform = lib.mkForce "x86_64-linux";
 
   hardware = {
-    amdgpu.initrd.enable = true;
-    cpu.amd.updateMicrocode = lib.mkDefault true;
+    cpu.intel.updateMicrocode = lib.mkDefault true;
   };
 
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
 }

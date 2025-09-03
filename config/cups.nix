@@ -1,5 +1,6 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = lib.mkForce true;
 }
