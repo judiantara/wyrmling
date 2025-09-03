@@ -1,4 +1,4 @@
-{lib, config, pkgs, user, ...}:
+{ user, pkgs, ... }:
 {
   services.mysql = {
     enable   = true;
