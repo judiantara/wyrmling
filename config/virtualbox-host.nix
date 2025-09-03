@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{  ... }:
+
 {
   virtualisation.virtualbox.host = {
     enable = true;
