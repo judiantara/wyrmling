@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   # restore host ssh keys
   environment ={
@@ -28,7 +29,8 @@
     extraConfig = ''
       AllowTcpForwarding yes
       AllowAgentForwarding no
-      AllowStreamLocalForwarding no
+      StreamLocalBindUnlink yes
+      AllowStreamLocalForwarding yes
       AuthenticationMethods publickey
       HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
       HostCertificate /etc/ssh/ssh_host_ed25519_key-cert.pub

@@ -25,20 +25,26 @@
       ragenix.nixosModules.default
     ];
 
-    cloudjumper  = systemModules ++ [ ./machines/cloudjumper  ];
-    doomhorn     = systemModules ++ [ ./machines/doomhorn     ];
-    hasufel      = systemModules ++ [ ./machines/hasufel      ];
-    hookfang     = systemModules ++ [ ./machines/hookfang     ];
-    meatlug      = systemModules ++ [ ./machines/meatlug      ];
-    razorback    = systemModules ++ [ ./machines/razorback    ];
-    rumbletail   = systemModules ++ [ ./machines/rumbletail   ];
-    seiryu       = systemModules ++ [ ./machines/seiryu       ];
-    shenlong     = systemModules ++ [ ./machines/shenlong     ];
-    skullcrusher = systemModules ++ [ ./machines/skullcrusher ];
-    stormfly     = systemModules ++ [ ./machines/stormfly     ];
-    toothless    = systemModules ++ [ ./machines/toothless    ];
-    whiteclaw    = systemModules ++ [ ./machines/whiteclaw    ];
-    windfola     = systemModules ++ [ ./machines/windfola     ];
+    containerModules = [
+      ragenix.nixosModules.default
+    ];
+
+    cloudjumper  = systemModules ++ [ ./modules/cloudjumper  ];
+    meatlug      = systemModules ++ [ ./modules/meatlug      ];
+    skullcrusher = systemModules ++ [ ./modules/skullcrusher ];
+    stormfly     = systemModules ++ [ ./modules/stormfly     ];
+    toothless    = systemModules ++ [ ./modules/toothless    ];
+    whiteclaw    = systemModules ++ [ ./modules/whiteclaw    ];
+
+    doomhorn     = containerModules ++ [ ./modules/doomhorn   ];
+    hasufel      = containerModules ++ [ ./modules/hasufel    ];
+    hookfang     = containerModules ++ [ ./modules/hookfang   ];
+    razorback    = containerModules ++ [ ./modules/razorback  ];
+    rumbletail   = containerModules ++ [ ./modules/rumbletail ];
+    seiryu       = containerModules ++ [ ./modules/seiryu     ];
+    shenlong     = containerModules ++ [ ./modules/shenlong   ];
+    windfola     = containerModules ++ [ ./modules/windfola   ];
+
     home-user    = [ ./users/generic..nix ];
   in {
     nixosModules = {
@@ -57,6 +63,37 @@
       whiteclaw    = whiteclaw;
       windfola     = windfola;
       home-user    = home-user;
+    };
+
+    templates = {
+      cloudjumper = {
+        path = ./machines/cloudjumper;
+        description = "CloudJumper NixOS Machine Configuration";
+      };
+      hasufel = {
+        path = ./machines/hasufel;
+        description = "Hasufel NixOS Machine Configuration";
+      };
+      meatlug = {
+        path = ./machines/meatlug;
+        description = "Meatlug NixOS Machine Configuration";
+      };
+      skullcrusher = {
+        path = ./machines/skullcrusher;
+        description = "SkullCrusher NixOS Machine Configuration";
+      };
+      stormfly = {
+        path = ./machines/stormfly;
+        description = "StormFly NixOS Machine Configuration";
+      };
+      toothless = {
+        path = ./machines/toothless;
+        description = "Toothless NixOS Machine Configuration";
+      };
+      windfola = {
+        path = ./machines/windfola;
+        description = "Windfola NixOS Machine Configuration";
+      };
     };
   };
 }

@@ -1,4 +1,5 @@
-{lib, config, pkgs, inputs, hostname, ...}:
+{ hostname, lib, config, inputs, pkgs, ... }:
+
 {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -6,7 +7,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
   # Opinionated: solely use flake instead of nix channels
   nix = let
@@ -30,7 +31,7 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
-  networking.hostName = "${hostname}";
+  networking.hostName = lib.mkForce "${hostname}";
 
   # Set your time zone.
   time.timeZone = "Asia/Jakarta";
@@ -50,20 +51,6 @@
       LC_TIME           = "id_ID.UTF-8";
     };
   };
-  
-  programs.zsh.enable = true;
-
-  users.defaultUserShell = pkgs.zsh;
-
-  environment.variables = {
-    EDITOR="nano";
-  };
-
-  systemd.services = {
-    "getty@".enable = lib.mkForce false;
-    "autovt@".enable = lib.mkForce false;
-    "serial-getty@".enable = lib.mkForce false;
-  };
 
   # use memory safe sudo implementation
   security.sudo.enable = lib.mkForce false;
@@ -71,4 +58,19 @@
     enable = true;
     execWheelOnly = false;
   };
+
+  environment.variables = {
+    EDITOR="nano";
+  };
+
+  environment.systemPackages = with pkgs; [
+    nano
+    wget
+    curl
+    gnumake
+    home-manager
+  ];
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 }
