@@ -10,7 +10,7 @@
             ESP = {
               size  = "512M";
               type  = "EF00";
-              label = "CloudjumperESP";
+              label = "CloudJumperESP";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -21,7 +21,7 @@
             luks = {
               size = "100%";
               type = "8304";
-              label = "Cloudjumper";
+              label = "CloudJumper";
               content = {
                 type = "luks";
                 name = "cloudjumper";
@@ -31,7 +31,6 @@
                   "--perf-no_write_workqueue"
                 ];
                 # disable settings.keyFile if you want to use interactive password entry
-                passwordFile = "/etc/luks/disk.key";
                 settings = {
                   allowDiscards = true;
                   keyFile = "/tmp/luks.key";

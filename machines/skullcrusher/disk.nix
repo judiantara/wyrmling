@@ -10,7 +10,7 @@
             ESP = {
               size  = "512M";
               type  = "EF00";
-              label = "SkullcrusherESP";
+              label = "SkullCrusherESP";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -21,7 +21,7 @@
             luks = {
               size = "100%";
               type = "8304";
-              label = "Skullcrusher";
+              label = "SkullCrusher";
               content = {
                 type = "luks";
                 name = "skullcrusher";
@@ -30,7 +30,8 @@
                   "--perf-no_read_workqueue"
                   "--perf-no_write_workqueue"
                 ];
-                # dinteractive password entry
+                # use interactive password entry
+                passwordFile = "/tmp/luks.key";
                 settings = {
                   allowDiscards = true;
                 };

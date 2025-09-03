@@ -1,6 +1,11 @@
-{lib, config, pkgs, user, ...}:
+{ user, pkgs, ...}:
+
 {
-programs.nix-ld.enable = true;
+  environment.systemPackages = with pkgs; [
+    socat
+  ];
+
+  programs.nix-ld.enable = true;
 
   programs.nix-ld.libraries = with pkgs; [
     openvscode-server
@@ -15,17 +20,17 @@ programs.nix-ld.enable = true;
     withoutConnectionToken = true;
   };
   
-#   systemd.services.openvscode-server-https = {
-#     enable = true;
-#     description = "Openvscode-server TLS Termination service";
-#     serviceConfig = {
-#       Type="simple";
-#       StandardOutput="journal";
-#       StandardError="journal";
-#       ExecStart = "${pkgs.socat}/bin/socat -lm -d openssl-listen:9443,reuseaddr,fork,certificate=/etc/ssl/certs/host-cert.pem,key=/etc/ssl/certs/host-key.pem,verify=0 tcp-connect:localhost:3000";
-#       RestartForceExitStatus="143";
-#       SuccessExitStatus="143";
-#     };
-#     wantedBy = [ "multi-user.target" ];
-#   };
+  systemd.services.openvscode-server-https = {
+    enable = true;
+    description = "Openvscode-server TLS Termination service";
+    serviceConfig = {
+      Type="simple";
+      StandardOutput="journal";
+      StandardError="journal";
+      ExecStart = "${pkgs.socat}/bin/socat -lm -d openssl-listen:9443,reuseaddr,fork,certificate=/etc/ssl/certs/host-cert.pem,key=/etc/ssl/certs/host-key.pem,verify=0 tcp-connect:localhost:3000";
+      RestartForceExitStatus="143";
+      SuccessExitStatus="143";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
 }

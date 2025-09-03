@@ -1,17 +1,17 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ user, ...}:
+
 {
   imports = [
-#     ./disk.nix
-    ./volume.nix
     ../../config/system.nix
     ../../config/latest-kernel.nix
-    ../../config/default-packages.nix
+    ../../config/system-packages.nix
     ../../config/default-user.nix
     ../../config/age-encryption.nix
     ../../config/ssh.nix
     ../../config/ssl.nix
     ../../config/dns.nix
     ../../config/git.nix
-    ../../users/judiantara.nix
+    ../../users/${user}.nix
+    ./volume.nix
   ];
 }
