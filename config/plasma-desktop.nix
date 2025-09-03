@@ -1,4 +1,5 @@
-{lib, config, pkgs, user, ...}:
+{ user, ... }:
+
 {
   services.displayManager = {
     defaultSession = "plasma";
