@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ lib, ... }:
+
 {
   # restore host ssh keys
   environment ={
@@ -15,20 +16,21 @@
 
   # Enable the OpenSSH daemon.
   services.openssh = {
-    enable    = true;
+    enable    = lib.mkForce true;
     allowSFTP = lib.mkForce false;
     settings  = {
-      PasswordAuthentication          = false;
-      UsePAM                          = false;
-      KbdInteractiveAuthentication    = false;
-      challengeResponseAuthentication = false;
-      X11Forwarding                   = false;
-      PermitRootLogin                 = "no";
+      PasswordAuthentication          = lib.mkForce false;
+      UsePAM                          = lib.mkForce false;
+      KbdInteractiveAuthentication    = lib.mkForce false;
+      challengeResponseAuthentication = lib.mkForce false;
+      X11Forwarding                   = lib.mkForce false;
+      PermitRootLogin                 = lib.mkForce "no";
     };
     extraConfig = ''
       AllowTcpForwarding yes
       AllowAgentForwarding no
-      AllowStreamLocalForwarding no
+      StreamLocalBindUnlink yes
+      AllowStreamLocalForwarding yes
       AuthenticationMethods publickey
       HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
       HostCertificate /etc/ssh/ssh_host_ed25519_key-cert.pub
@@ -40,5 +42,6 @@
   networking.firewall.allowedTCPPorts = [ 22 ];
 
   # Start ssh-agent
+#   programs.ssh.startAgent = lib.mkForce false;
   programs.ssh.startAgent = true;
 }

@@ -1,5 +1,6 @@
-{lib, config, pkgs, user, ...}:
-{
+{ user, uid, ... }:
+{ config, lib, ... }:
+lib.mkIf (config.installation.flavor == "gui") {
   services.displayManager = {
     defaultSession = "plasma";
     
@@ -10,12 +11,18 @@
 
     sddm = {
       enable = true;
+      autoNumlock = false;
       wayland = {
         enable = true;
       };
       autoLogin = {
         relogin = true;
-        minimumUid = 1000;
+        minimumUid = uid;
+      };
+      settings = {
+        Users = {
+          MinimumUid = uid;
+        };
       };
     };
   };
@@ -27,4 +34,11 @@
     layout = "us";
     variant = "";
   };
+
+  environment.etc."AccountsService/AccountsService.conf".text = ''
+    [UserList]
+    MinimumUid=${toString uid}
+  '';
+
+  services.accounts-daemon.enable = true;
 }
