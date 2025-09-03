@@ -1,4 +1,5 @@
-{hostname, inputs, outputs, lib, config, pkgs, ...}:
+{ pkgs, ...}:
+
 {
   environment.systemPackages = with pkgs; [
     yubikey-manager
